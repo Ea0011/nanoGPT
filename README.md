@@ -1,3 +1,39 @@
+# Homework #5
+
+This homework will be about using one of the simplest and most concise repositories for training GPT models. This repo can be used both for training and fine tuning models. It contains very minimal implementations of GPT model, data loading, and a training loop. All of these components are nicely configurable. It is highly recommended for you to read the `model.py` and `train.py` files to get an understanding of how things work under the hood.
+
+First, read the [nanoGPT](#nanoGPT) section of this repo and perform the setup. You will also find the instructions on how use the repo in that section.
+
+## Tasks
+
+Your main tasks will be: a) Preparing a tiny dataset for training a very small GPT-2 model. b) Creating a training configuration and training the model. Below are more detailed descriptions of the tasks.
+
+### Preparing the Dataset
+Preparation of the data for language model training is very important. Typically, large language models are pretrained on massive internet data. Properly preparing data of these quantities is necessary to ensure fast streaming of the data to the model for training. This step involves gathering the raw text from the dataset and processing it by tokenizing and storing in an efficient format which is later used during training. We will simulate these steps on a small scale dataset of stories.  
+
+You will be working with the `./data/stories/prepare.py` file. It is a script that performs the process mentioned above and saves 2 files: `train.bin` and `val.bin`. These files will contain the token ids of all stories in the dataset. Here are the steps that you will perform:  
+
+1. Get the **deven367/babylm-100M-children-stories** dataset from HuggingFace
+2. Load the tiktoken tokenizer with GPT2 encodings
+3. Tokenize all the stories to obtain token ids
+4. Save the token ids to binary files to be used during training.
+
+After writing all the necessary code, run `python ./data/stories/prepare.py ` to prepare the datasets. This should now generate .bin files without any errors.
+
+### Configuration and Training
+
+After preparing the dataset, you can configure and start a training run. A simple configuration is created at `./config/train_stories.py`. Inspect these options. Play around the parameters and start training.  
+
+After configuring, run `python train.py config/train_stories.py --device=cpu --compile=False` to train the model locally, on a cpu.
+To sample from the trained model, run `python sample.py --out_dir=out-stories --device=cpu `.
+
+### Training in Colab
+If you want to train a larger model for longer in Colab, follow the instructions below:
+
+1. Make all the changes and verify that the model trains locally.
+2. Make a repository on GitHub with all the changes you have made.
+3. Use the `./nanoGPT.ipynb` notebook to run the training on a GPU. Change the url to the repo you have created.
+
 
 # nanoGPT
 
